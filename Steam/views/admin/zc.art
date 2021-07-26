@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="icon" href="/admin/images/favicon.ico">
+    <link rel="stylesheet" href="/admin/lib/bootstrap/css/bootstrap.min.css">
+    // <link rel="stylesheet" href="/admin/css/base.css">
+    <style>
+        .header .logo{
+            width: 175px;
+            height: 60px;
+    line-height: 60px;
+        }
+.logo, .logo a, .logo img {
+    width: 175px;
+    height: 60px;
+}
+.fl {
+    float: left;
+}
+.header {
+    width: 100%;
+    min-width: 1100px;
+    height: 60px;
+    background: #3f434c;
+}
+.header .w1100 {
+    height: 60px;
+}
+.w1100 {
+    width: 1100px;
+    margin: 0 auto;
+}
+.navigation {
+    height: 60px;
+}
+
+.fr {
+    float: right;
+}
+.navigation li {
+    height: 60px;
+    float: left;
+}
+.navigation li a:hover, .navigation li .active {
+    color: #ffff;
+}
+.navigation li a {
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 26px;
+    color: #b8b6b4;
+    font-size: 14px;
+    transition: all 0.4s;
+}
+.form-container {
+    padding: 20px;
+    background: #212429;
+    border: 0;
+    box-shadow: none;    
+}
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="w1100 container">
+            <!-- 网站logo开始 -->
+            <div class="col-md-4 logo fl" style="background: #3f434c;">
+                    <a href="/Steam.html"><img src="admin/images/logo_steam.svg"></a>
+            </div>
+
+            <!-- 网站logo结束 -->
+            <!-- 网站导航开始 -->
+                <ul class="navigation fr">
+                    <li>
+                        <a  href="/Steam.html">首页</a>
+                    </li>
+                    <li>
+                        <a class="active" href="/zc">注册</a>
+                    </li>
+                    <li>
+                        <a  href="/admin/login">登录</a>
+                    </li>
+                </ul>
+            <!-- 网站导航结束 -->
+        </div>
+    </div>
+
+    <div class="login-body" style="background: #212429;">
+        <div class="login-container" style="width: 500px;height: 473px;background: #212429;">
+            
+            <form id="form" class="form-container" action method="post">
+                <h4 class="title" style="color: #fff;">创建你的账号</h4>
+
+                <div class="form-group" style="background: #212429; color: #fff; border: none; box-shadow: none;">
+                    <label>用户名</label>
+                    <input value="{{user && user.username}}" name="username" style="background: #212429; color: #fff; border: none; box-shadow: none;" type="text" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div class="form-group" style="background: #212429; color: #fff; border: none; box-shadow: none;">
+                    <label>邮箱</label>
+                    <input value="{{user && user.email}}" name='email' style="background: #212429; color: #fff; border: none; box-shadow: none;" type="email" class="form-control" placeholder="请输入邮箱地址">
+                </div>
+                <div class="buttons" >
+                    <input name="code" type="text" class="form-control" style="width: 75%;float: left; background: #212429; color: #fff; border: none; box-shadow: none;" placeholder="请输入验证码">
+                    <div onclick="fanme()" style="width: 25%;float: right;" class="btn btn-primary" id="yzm">发送验证码</div>
+                </div>
+                <div class="form-group" style="background: #212429; color: #fff; border: none; box-shadow: none;">
+                    <label>密码</label>
+                    <input name="password" type="password" class="form-control" style="background: #212429; color: #fff; border: none; box-shadow: none;" placeholder="请输入密码">
+                </div>
+                <div class="form-group" style="background: #212429; color: #fff; border: none; box-shadow: none;">
+                    <label>角色</label>
+                    <select style="background: #212429; border: none; box-shadow: none;color: #fff;" class="form-control" name="role" >
+                        <option {{user && user.role == 'normal' ? 'selected' : ''}} value="normal">普通用户</option>
+                    </select>
+                </div>
+                <div class="form-group" style="background: #212429; color: #fff; border: none; box-shadow: none;">
+                    <label>状态</label>
+                    <select style="background: #212429; border: none; box-shadow: none;color: #fff;" name='state' class="form-control">
+                        <option {{user && user.state == '0' ? 'selected' : ''}} value='0'>启用</option>
+                        <option {{user && user.state == '1' ? 'selected' : ''}} value='1'>禁用</option>
+                    </select>
+                </div>
+                <div class="buttons" >
+                    <div id="zc" onclick="zc()" type="submit" style="width: 100%;" class="btn btn-primary text-center ">注册</div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/admin/js/common.js"></script>
+    <script  type="text/javascript">
+    // 表单提交事件
+        $('#loginForm').on('submit',function(){
+            var result = serializeToJson($(this));
+            // 没有输入邮寄地址
+            // if(result.email.trim().length == 0){
+            //     alert("Please 输入邮箱");
+            //     // 阻止程序执行
+            //     return false;
+            // }
+            // 如果用户没有输入密码
+            // if(result.password.trim().length == 0){
+            //     alert("Please 输入密码");
+            //     // 阻止程序执行
+            //     return false;
+            // }
+        });
+        var form = document.getElementById('form');
+        function fanme(){
+            var i = 60;
+            var div = document.getElementById('yzm');
+            var timers = setInterval(function () {
+                i--;
+                if (i < 0) {
+                    div.style="width: 25%;float: right;";
+                    div.removeAttribute('disabled');
+                    $('#yzm').html('发送验证码');
+                    clearTimeout(timers);
+                }else{       
+                    div.style="width: 25%;float: right;pointer-events: none;";
+                    div.setAttribute('disabled','disabled');
+                    $('#yzm').html(`${i}s后再次发送`);
+                }
+		    }, 1000)
+	        form.action="/email";
+	        form.submit();
+        };
+        function zc() {
+            form.action="/register";
+	        form.submit();
+        }
+        
+    </script>   
+</body>
+
+</html>

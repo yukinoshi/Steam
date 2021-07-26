@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" href="/home/css/base.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+		<link rel="icon" href="/home/images/favicon.ico" type="image/x-icon">
+    {{block 'link'}}{{/block}}
+
+</head>
+<body>
+    {{block 'main'}} {{/block}}
+</body>
+</html>

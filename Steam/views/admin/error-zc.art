@@ -1,0 +1,15 @@
+{{extend './common/layout.art'}}
+
+{{block 'main'}}
+<div class="erra">
+    <h3 class="text-center" id="err">{{msg}}</h3>
+</div>
+{{/block}}
+
+{{block 'script'}}
+    <script type="text/javascript">
+        setTimeout(function(){
+            location.href = "/zc"
+        }, 3000);
+    </script>
+{{/block}}
